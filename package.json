@@ -1,5 +1,5 @@
 {
-  "name": "nal-fe",
+  "name": "1",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "nhanvm <minh.nhat.dev@gmail.com>",
@@ -19,6 +19,7 @@
     "bootstrap-vue": "^2.23.1",
     "vue": "^2.7.14",
     "vue-router": "^3.0.1",
+    "vuejs-paginate": "^2.1.0",
     "vuex": "^3.1.1",
     "vuex-cache": "^3.1.0",
     "vuex-persistedstate": "^2.5.4"

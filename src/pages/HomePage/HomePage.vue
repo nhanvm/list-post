@@ -2,33 +2,33 @@
 <style lang="scss" scoped src="./style.scss"></style>
 
 <template>
-  <ul class="list-unstyled">
-    <li class="media">
-      <div class="media-body">
-        <h5 class="mt-0 mb-1">List-based media object</h5>
-        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
-        ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus
-        viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.
-        Donec lacinia congue felis in faucibus.
-      </div>
-    </li>
-    <li class="media my-4">
-      <div class="media-body">
-        <h5 class="mt-0 mb-1">List-based media object</h5>
-        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
-        ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus
-        viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.
-        Donec lacinia congue felis in faucibus.
-      </div>
-    </li>
-    <li class="media">
-      <div class="media-body">
-        <h5 class="mt-0 mb-1">List-based media object</h5>
-        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
-        ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus
-        viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.
-        Donec lacinia congue felis in faucibus.
-      </div>
-    </li>
-  </ul>
+  <div>
+    <SearchBlogs />
+    <ul class="list-unstyled row">
+      <ItemBlog
+        v-for="(item, index) in this.getListBlogs"
+        v-bind:key="index"
+        v-bind:data="{
+          img: item.image,
+          title: item.title,
+          content: item.content
+        }"
+      />
+    </ul>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <li
+          class="page-item"
+          v-for="(number, index) in this.displayedItems"
+          v-bind:key="index"
+        >
+          <a class="page-link"
+            @click="() => handlePagination(number)"
+          >{{ number }}</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+    </nav>
+  </div>
 </template>
