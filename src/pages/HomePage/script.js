@@ -1,21 +1,25 @@
 import { mapState } from 'vuex'
 import SearchBlogs from './../../components/SearchBlogs/SearchBlogs'
+import SortBlogs from './../../components/SortBlogs/SortBlogs'
 import ItemBlog from './../../components/ItemBlog/ItemBlog'
 
 export default {
   name: 'HomePage',
   components: {
     SearchBlogs,
+    SortBlogs,
     ItemBlog
   },
   data () {
     return {
-      page: 1
+      page: 1,
+      pageCurrent: 1
     }
   },
   computed: {
     ...mapState({
-      getListBlogs: state => state.getListBlogs
+      getListBlogs: state => state.getListBlogs,
+      currentPage: state => state.currentPage
     }),
     displayedItems () {
       return 5
@@ -26,8 +30,16 @@ export default {
   },
   methods: {
     handlePagination (valPerPage) {
-      this.$store.commit('getValSearch', valPerPage)
+      this.pageCurrent = valPerPage
       this.$store.dispatch('getListBlogs', {page: valPerPage})
+    },
+    async nextPage () {
+      await this.$store.dispatch('getListBlogs', {page: this.currentPage + 1})
+      this.pageCurrent = this.currentPage
+    },
+    async perPage () {
+      await this.$store.dispatch('getListBlogs', {page: this.currentPage - 1})
+      this.pageCurrent = this.currentPage
     }
   }
 }

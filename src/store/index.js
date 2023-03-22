@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import GetListBlogs from '../apis/GetListBlogs'
 import SearchBlogs from '../apis/SearchBlogs'
+import GetDetailBlog from '../apis/GetDetailBlog'
 
 Vue.use(Vuex, axios)
 
@@ -13,7 +14,15 @@ export default new Vuex.Store({
     currentPage: 1,
     perPage: 10,
     totalItems: null,
-    getSearchListBlogs: {}
+    getSearchListBlogs: {},
+    dataDetailBlogsSuccess: {},
+    refCount: 0,
+    isLoading: false,
+    message: {
+      type: '',
+      content: {
+      }
+    }
   },
   getters: {
   },
@@ -26,6 +35,7 @@ export default new Vuex.Store({
       })
       if (response.status !== 200) {
       } else {
+        state.currentPage = payload.page
         await commit('getListBlogsSuccess', response.data)
       }
     },
@@ -37,7 +47,20 @@ export default new Vuex.Store({
       if (response.status !== 200) {
       } else {
         await commit('getSearchListBlogsSuccess', response.data)
+        await commit('getValSearch', payload.search)
       }
+    },
+    // GET DETAIL BLOGS
+    async getDetailBlog ({state, commit}, payload) {
+      const response = await GetDetailBlog.show(payload)
+      if (response.status !== 200) {
+      } else {
+        await commit('getDetailBlogsSuccess', response.data)
+      }
+    },
+    async addAlert ({ state, commit }, payload) {
+      state.message.type = 'error'
+      state.message.content = payload
     }
   },
   mutations: {
@@ -49,6 +72,18 @@ export default new Vuex.Store({
     },
     getValSearch (state, val) {
       state.valSearch = val
+    },
+    getDetailBlogsSuccess (state, val) {
+      state.dataDetailBlogsSuccess = val
+    },
+    setLoadingSuccess (state, val) {
+      if (val) {
+        state.refCount++
+        state.isLoading = true
+      } else if (state.refCount > 0) {
+        state.refCount--
+        state.isLoading = (state.refCount > 0)
+      }
     }
   }
 })

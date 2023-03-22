@@ -13,13 +13,11 @@ export default {
     }
   },
   async created () {
-    // if (this.getValSearch) {
-    //   await this.$store.dispatch('getSearchListBlogs', { search: this.getValSearch })
-    // }
+    await this.$store.dispatch('getSearchListBlogs', { search: this.$route.params.key.slice(1) })
   },
   computed: {
     ...mapState({
-      getValSearch: state => state.getValSearch,
+      valSearch: state => state.valSearch,
       getSearchListBlogs: state => state.getSearchListBlogs
     })
   }
