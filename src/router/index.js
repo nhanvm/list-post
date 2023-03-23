@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HomePage from '@/pages/HomePage/HomePage'
 import PageSearch from '@/pages/PageSearch/PageSearch'
 import DetailBlog from '@/pages/DetailBlog/DetailBlog'
+import PageError from '@/pages/PageError/PageError'
 import NotFound from '@/pages/NotFound/NotFound'
 
 Vue.use(Router)
@@ -24,6 +25,12 @@ let router = new Router({
       path: '/blog/:id',
       name: 'DetailBlog',
       component: DetailBlog
+    },
+    {
+      path: '/error',
+      name: 'PageError',
+      //  load dynamic
+      component: PageError
     },
     //  404
     {

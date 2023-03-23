@@ -3,8 +3,14 @@
 
 <template>
   <div>
-    <SearchBlogs />
-    <SortBlogs />
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <SortBlogs />
+      </div>
+      <div class="col-md-6">
+        <SearchBlogs />
+      </div>
+    </div>
     <ul class="list-unstyled row">
       <ItemBlog
         v-for="(item, index) in this.getListBlogs"
@@ -17,10 +23,10 @@
         }"
       />
     </ul>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
+    <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-5">
+      <ul class="pagination pt-3">
         <li class="page-item"
-          :class="pageCurrent === 1 ? 'disabled' : ''"
+          :class="currentPage === 1 ? 'disabled' : ''"
         >
         <a class="page-link"
           @click="perPage()">
@@ -29,13 +35,15 @@
           class="page-item"
           v-for="(number, index) in this.displayedItems"
           v-bind:key="index"
-          :class="(index + 1 === pageCurrent) ? 'active': ''"
+          :class="(index + 1 === currentPage) ? 'active': ''"
         >
           <a class="page-link"
             @click="() => handlePagination(number)"
           >{{ number }}</a>
         </li>
-        <li class="page-item">
+        <li class="page-item"
+          :class="currentPage === dataGetTotalBlogs ? 'disabled' : ''"
+        >
           <a class="page-link"
             @click="nextPage()"
           >Next</a>

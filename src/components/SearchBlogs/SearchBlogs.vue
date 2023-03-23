@@ -2,7 +2,7 @@
 <style lang="scss" scoped src="./style.scss"></style>
 
 <template>
-  <div class="search-blog col-md-3">
+  <div class="search-blog col-md-6">
     <div class="input-group mb-3">
       <input
         type="text"

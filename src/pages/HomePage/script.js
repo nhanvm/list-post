@@ -1,7 +1,7 @@
 import { mapState } from 'vuex'
-import SearchBlogs from './../../components/SearchBlogs/SearchBlogs'
-import SortBlogs from './../../components/SortBlogs/SortBlogs'
-import ItemBlog from './../../components/ItemBlog/ItemBlog'
+import SearchBlogs from '@/components/SearchBlogs/SearchBlogs'
+import SortBlogs from '@/components/SortBlogs/SortBlogs'
+import ItemBlog from '@/components/ItemBlog/ItemBlog'
 
 export default {
   name: 'HomePage',
@@ -12,34 +12,33 @@ export default {
   },
   data () {
     return {
-      page: 1,
-      pageCurrent: 1
+      page: 1
     }
   },
   computed: {
     ...mapState({
       getListBlogs: state => state.getListBlogs,
-      currentPage: state => state.currentPage
+      currentPage: state => state.currentPage,
+      typeOrder: state => state.typeOrder,
+      dataGetTotalBlogs: state => state.dataGetTotalBlogs
     }),
     displayedItems () {
-      return 5
+      return this.dataGetTotalBlogs
     }
   },
   created () {
+    this.$store.dispatch('getTotalBlogs')
     this.$store.dispatch('getListBlogs', {page: 1})
   },
   methods: {
-    handlePagination (valPerPage) {
-      this.pageCurrent = valPerPage
-      this.$store.dispatch('getListBlogs', {page: valPerPage})
+    async handlePagination (valPerPage) {
+      await this.$store.dispatch('getListBlogs', { order: this.typeOrder, page: valPerPage })
     },
     async nextPage () {
       await this.$store.dispatch('getListBlogs', {page: this.currentPage + 1})
-      this.pageCurrent = this.currentPage
     },
     async perPage () {
       await this.$store.dispatch('getListBlogs', {page: this.currentPage - 1})
-      this.pageCurrent = this.currentPage
     }
   }
 }

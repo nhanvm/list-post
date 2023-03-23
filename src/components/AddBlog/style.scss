@@ -1,0 +1,20 @@
+.add-blog_modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 640px;
+  max-width: 100%;
+  padding: 30px 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255,255,255,1);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  &_close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    max-width: 25px;
+    cursor: pointer;
+  }
+}

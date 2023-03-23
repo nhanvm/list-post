@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import router from '@/router'
 import store from './store'
 import App from './App'
+import '@/assets/scss/common.scss'
 import 'bootstrap/dist/css/bootstrap.css'
 
 Vue.config.productionTip = false

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '../store'
+import redirectErrorPage from '../utils/redirectErrorPage'
 
 const Api = axios.create({
   baseURL: 'https://5f55a98f39221c00167fb11a.mockapi.io/'
@@ -26,9 +27,10 @@ Api.interceptors.response.use(
     console.log('error', error.response.status)
     store.commit('setLoadingSuccess', false)
     if (error.response.status === 500) {
-      await store.dispatch('addAlert', 'Server error')
+      redirectErrorPage('Server Error', 500)
+      // console.log('1111')
     } else if (error.response.status === 404) {
-      await store.dispatch('addAlert', 'Not found')
+      redirectErrorPage('Not Found', 404)
     }
     return Promise.reject(error)
   }
